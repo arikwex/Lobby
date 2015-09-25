@@ -1,0 +1,22 @@
+{
+  "name": "Lobby",
+  "description": "",
+  "repository": "",
+  "version": "1.0.0",
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "jquery": "^2.1.3",
+    "p2": "^0.7.0",
+    "underscore": "^1.8.2"
+  },
+  "devDependencies": {
+    "aliasify": "^1.7.2",
+    "coffeeify": "^1.1.0",
+    "gulp": "^3.9.0",
+    "quick-sip": "arikwex/quick-sip"
+  },
+  "aliasify": {
+    "aliases": {
+    }
+  }
+}
