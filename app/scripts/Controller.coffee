@@ -13,6 +13,7 @@ class Controller
     @checkTriggers()
 
   checkTriggers: ->
+    # walk controls
     vel =
       x: 0
       y: 0
@@ -24,6 +25,8 @@ class Controller
       @target?.walk(vel)
     else
       @target?.idle()
+    # throw controls
+    if @keys[90] then @target?.throw()
     return
 
   onKeyUp: (evt) ->

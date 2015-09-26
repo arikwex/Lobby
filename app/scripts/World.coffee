@@ -29,6 +29,7 @@ class World
       dT = 0.1
     @lastTime = timestamp
     @update(dT)
+    @render()
     window.requestAnimationFrame((timestamp) => @onFrame(timestamp))
     return
 
@@ -38,11 +39,16 @@ class World
       toRemove = entity.update?(dT)
       if toRemove
         removeHash[uid] = entity
-      if @canvas?
-        # TODO: render order by Y value
-        entity.render(@canvas.context)
     for uid, entity of removeHash
       @remove(entity)
+    return
+
+  render: ->
+    if @canvas?
+      for uid, entity of @entities
+        entity.renderShadow?(@canvas.context)
+      for uid, entity of @entities
+        entity.render?(@canvas.context)
     return
 
 module.exports = World

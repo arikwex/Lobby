@@ -26,8 +26,9 @@ $(->
   world.add(automaton)
   automaton.setTarget(character.pos)
 
-  plant = new Plant(400, 400)
-  world.add(plant)
+  for i in [0..5]
+    plant = new Plant(Math.random() * 500 + 150, Math.random() * 300 + 150)
+    world.add(plant)
 
   world.run()
   $('body').append(canvas.$el)

@@ -6,7 +6,7 @@ class TerrainRenderer
     terrainImg.src = 'images/background.png'
     return
 
-  render: (context) ->
+  renderShadow: (context) ->
     context.setTransform(1, 0, 0, 1, 0, 0)
     context.drawImage(terrainImg, 0, 0)
     return

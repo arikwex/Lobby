@@ -13,12 +13,16 @@ class PlantModel
     @anim += dT
     if @anim > 4
       @anim -= 4
-    # Grow the fruit
-    if @fruit?
-      @fruit?.grow()
-    else
-      @fruit = new Fruit(@pos.x, @pos.y - 28)
+    # Create a new fruit if one does not exist
+    if not @fruit?
+      @fruit = new Fruit(@pos.x, @pos.y - 35)
+      @fruit.plant = @
       @world.add(@fruit)
+    return
+
+  detach: ->
+    @fruit.plant = null
+    @fruit = null
     return
 
 module.exports = PlantModel
