@@ -7,12 +7,13 @@ class AutomataModel
       x: 0
       y: 0
     @heading = 0
-    @MAX_SPEED = 40
+    @disabled = 1
+    @MAX_SPEED = 30
     return
 
   update: (dT) ->
     # Chase current target
-    if @target?
+    if @target? and @disabled <= 0
       @heading = Math.atan2(-@target.y + @pos.y, @target.x - @pos.x)
       @propel(100 * dT)
 
@@ -25,6 +26,10 @@ class AutomataModel
     # Locamotion
     @pos.x += @vel.x * dT
     @pos.y += @vel.y * dT
+    if @disabled > 0
+      @vel.x -= @vel.x * 0.5 * dT
+      @vel.y -= @vel.y * 0.5 * dT
+      @disabled -= dT
 
     # limit max speed
     mag = Math.sqrt(@vel.x * @vel.x + @vel.y * @vel.y)

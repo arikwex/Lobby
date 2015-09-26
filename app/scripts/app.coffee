@@ -7,6 +7,7 @@ Character = require('./character/Character')
 Automata = require('./automata/Automata')
 Plant = require('./plant/Plant')
 Fruit = require('./fruit/Fruit')
+Gem = require('./gem/Gem')
 
 $(->
   world = new World()
@@ -29,6 +30,10 @@ $(->
   for i in [0..5]
     plant = new Plant(Math.random() * 500 + 150, Math.random() * 300 + 150)
     world.add(plant)
+
+  for i in [0..5]
+    gem = new Gem(Math.random() * 500 + 150, Math.random() * 300 + 150)
+    world.add(gem)
 
   world.run()
   $('body').append(canvas.$el)

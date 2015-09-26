@@ -11,13 +11,15 @@ class FruitModel
       y: 0
     @height = 0
     @vHeight = 0
-    @anim = 0
+    @anim = Math.random() * 3
     @scale = 0
     @angle = 0
     @GROW_RATE = 0.3
     @held = false
     @planted = true
     @decaying = false
+    @MAX_IDLE_TIME = 8
+    @idleTime = 3
     return
 
   update: (dT) ->
@@ -40,6 +42,12 @@ class FruitModel
         @vel.x -= @vel.x * 0.75
         @vel.y -= @vel.y * 0.75
         @height = 6
+      if not @planted
+        @idleTime -= dT
+        if @idleTime <= 0 and not @decaying
+          @decay()
+    else
+      @idleTime = @MAX_IDLE_TIME
     # Grow
     if @scale < 1
       @scale += dT * @GROW_RATE
@@ -64,7 +72,8 @@ class FruitModel
     return
 
   characterCollision: (character) ->
-    if @held or @scale < 1 or Math.sqrt(@vel.x * @vel.x + @vel.y * @vel.y) > 20 or character.holding
+    if @held or @scale < 1 or @decaying or character.holding or
+       Math.sqrt(@vel.x * @vel.x + @vel.y * @vel.y) > 20
       return
     dx = character.pos.x - @pos.x
     dy = character.pos.y - @pos.y
@@ -73,11 +82,11 @@ class FruitModel
     return false
 
   automataCollision: (automata) ->
-    if @held or @scale < 1 or @planted
+    if @held or @scale < 1 or @planted or @decaying
       return
     dx = automata.pos.x - @pos.x
     dy = automata.pos.y - @pos.y
-    if dx > -40 and dx < 40 and dy > 0 and dy < 35
+    if dx > -40 and dx < 40 and dy > -5 and dy < 35
       return true
     return false
 
@@ -101,10 +110,28 @@ class FruitModel
 
   collideAutomata: (automata) ->
     @decay()
-    automata.vel.x += @vel.x
-    automata.vel.y += @vel.y
-    @vel.x = -@vel.x * 0.6
-    @vel.y = -@vel.y * 0.6
+    # Normal
+    nx = @pos.x - automata.pos.x
+    ny = @pos.y - (automata.pos.y - 15)
+    mag = Math.sqrt(nx * nx + ny * ny)
+    nx /= mag
+    ny /= mag
+    # Incident ray
+    ix = @vel.x
+    iy = @vel.y
+    mag = Math.sqrt(ix * ix + iy * iy)
+    ix /= mag
+    iy /= mag
+    # R = I + 2 * N * (I.N)
+    dot = nx * ix + ny * iy
+    rx = ix - 2 * nx * dot
+    ry = iy - 2 * ny * dot
+    @vel.x = rx * mag
+    @vel.y = ry * mag
+    # momentum transfer
+    automata.vel.x += nx * -60
+    automata.vel.y += ny * -60
+    automata.disabled = 1
     return
 
 module.exports = FruitModel

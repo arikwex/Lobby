@@ -5,7 +5,7 @@ class PlantModel
     @pos =
       x: 0
       y: 0
-    @anim = 0
+    @anim = Math.random() * 3
     @fruit = null
     return
 
