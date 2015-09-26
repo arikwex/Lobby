@@ -43,7 +43,8 @@ class GemRenderer
     sprite = sprites[parseInt(@anim * 4) % 4]
     context.setTransform(1, 0, 0, 1, @pos.x, @pos.y - @height)
     context.scale(0.4, 0.4)
-    context.translate(-sprite.width / 2, -sprite.height)
+    context.rotate(@angle)
+    context.translate(-sprite.width / 2, -sprite.height / 2)
     context.drawImage(sprite, 0, 0)
     return
 

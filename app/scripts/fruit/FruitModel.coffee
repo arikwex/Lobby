@@ -77,7 +77,7 @@ class FruitModel
       return
     dx = character.pos.x - @pos.x
     dy = character.pos.y - @pos.y
-    if dx > -10 and dx < 10 and dy > 0 and dy < 40
+    if dx > -10 and dx < 10 and dy > -10 and dy < 30
       return true
     return false
 
@@ -129,9 +129,11 @@ class FruitModel
     @vel.x = rx * mag
     @vel.y = ry * mag
     # momentum transfer
+    automata.throw()
     automata.vel.x += nx * -60
     automata.vel.y += ny * -60
-    automata.disabled = 1
+    automata.disabled = 2
+    automata.setTarget(@world.player.pos)
     return
 
 module.exports = FruitModel

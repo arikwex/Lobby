@@ -19,13 +19,15 @@ $(->
 
   character = new Character(400, 300)
   world.add(character)
+  world.player = character
 
   controller = new Controller()
   controller.bind(character)
 
-  automaton = new Automata(300, 300)
-  world.add(automaton)
-  automaton.setTarget(character.pos)
+  for i in [0..5]
+    automaton = new Automata(Math.random() * 500 + 150, Math.random() * 300 + 150)
+    world.add(automaton)
+    automaton.setTarget(character.pos)
 
   for i in [0..5]
     plant = new Plant(Math.random() * 500 + 150, Math.random() * 300 + 150)
