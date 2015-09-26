@@ -8,6 +8,7 @@ class World
 
   add: (entity) ->
     entity.UID = @UID
+    entity.world = @
     @UID++
     @entities[entity.UID] = entity
     return

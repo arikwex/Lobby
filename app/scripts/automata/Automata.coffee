@@ -3,9 +3,11 @@ AutomataModel = require('./AutomataModel')
 AutomataRenderer = require('./AutomataRenderer')
 
 class Automata
-  constructor: ->
+  constructor: (x, y) ->
     @initModel()
     @initRenderer()
+    @pos.x = x
+    @pos.y = y
     return
 
 _.extend(Automata.prototype, AutomataModel.prototype)

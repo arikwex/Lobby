@@ -43,10 +43,6 @@ class CharacterRenderer
       context.translate(sprite.width * 0.33, 0)
       context.scale(-0.33, 0.33)
     context.drawImage(sprite, 0, 0)
-
-    context.setTransform(1,0,0,1,0,0)
-    context.fillStyle = '#f00'
-    context.fillRect(@pos.x - 3, @pos.y - 3, 6, 6)
     return
 
 module.exports = CharacterRenderer

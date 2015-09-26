@@ -1,8 +1,8 @@
 class AutomataModel
   initModel: ->
     @pos =
-      x: 300
-      y: 300
+      x: 0
+      y: 0
     @vel =
       x: 0
       y: 0

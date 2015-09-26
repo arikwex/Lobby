@@ -2,8 +2,8 @@ class CharacterModel
   initModel: ->
     @anim = 0
     @pos =
-      x: 400
-      y: 300
+      x: 0
+      y: 0
     @vel =
       x: 0
       y: 0
